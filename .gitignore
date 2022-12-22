@@ -132,6 +132,7 @@ dmypy.json
 # Local
 sql_app.db
 sql_app_test.db
+*.db
 
 *.vscode
 .DS_Store
