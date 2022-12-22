@@ -27,7 +27,15 @@ def create_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
     if old_admin is not None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail=f"Admin with such id already exists",
+            detail=f"Admin with such user_id already exists",
+        )
+
+    related_user = db.query(models.User).filter(models.User.id == admin.user_id).first()
+
+    if related_user is None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"user_id doen't relate to any user",
         )
 
     new_admin = models.Admin(**admin.dict())

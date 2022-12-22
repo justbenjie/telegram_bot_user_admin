@@ -18,5 +18,7 @@ class AdminCreate(BaseModel):
 
 
 class AdminOut(AdminCreate):
+    user: UserOut
+
     class Config:
         orm_mode = True

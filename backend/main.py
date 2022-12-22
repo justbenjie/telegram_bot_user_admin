@@ -3,13 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from . import models
 from .routers import admin, user
 from .db import engine
-from .utils import add_admins
+from .preloader import AdminsPreloader
 
-FILE_NAME = "config.json"
 
 models.Base.metadata.create_all(bind=engine)
 
-add_admins(FILE_NAME)
+admins_preloader = AdminsPreloader()
+admins_preloader.add_admins()
 
 app = FastAPI()
 

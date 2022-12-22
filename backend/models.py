@@ -1,5 +1,6 @@
 from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, String, Boolean, text
 from .db import Base
+from sqlalchemy.orm import relationship, backref
 
 
 class User(Base):
@@ -13,9 +14,6 @@ class User(Base):
 
 class Admin(Base):
     __tablename__ = "admins"
-
-    user_id = Column(
-        Integer,
-        # ForeignKey("users.id", ondelete="CASCADE"),
-        primary_key=True,
-    )
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), unique=True)
+    user = relationship("User")
