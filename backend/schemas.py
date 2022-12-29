@@ -8,6 +8,12 @@ class UserCreate(BaseModel):
     gender: str
 
 
+class UserUpdate(BaseModel):
+    name: str
+    phone: str
+    gender: str
+
+
 class UserOut(UserCreate):
     class Config:
         orm_mode = True

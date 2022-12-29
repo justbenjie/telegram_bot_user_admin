@@ -28,14 +28,24 @@ class AdminsPreloader:
         users = map(self.__create_user_model, self.admin_ids)
         admins = map(self.__create_admin_model, self.admin_ids)
 
-        db = SessionLocal()
         for user, admin in zip(users, admins):
 
             try:
+                db = SessionLocal()
                 db.add(user)
                 db.commit()
+                print(f"user with id {user.id} added")
+            except:
+                print(f"user with id {user.id} already exists")
+            finally:
+                db.close()
+
+            try:
+                db = SessionLocal()
                 db.add(admin)
                 db.commit()
+                print(f"admin with id {admin.user_id} added")
             except:
-                print(f"admin with id {admin.id} already exists")
-        db.close()
+                print(f"admin with id {admin.user_id} already exists")
+            finally:
+                db.close()

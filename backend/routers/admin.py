@@ -9,6 +9,20 @@ from typing import List
 router = APIRouter(prefix="/admins", tags=["Admins"])
 
 
+@router.get("/{id}", response_model=schemas.AdminOut)
+def get_admin(id: int, db: Session = Depends(get_db)):
+
+    admin = db.query(models.Admin).filter(models.Admin.user_id == id).first()
+
+    if admin is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Admin with id: {id} doesn't exist",
+        )
+
+    return admin
+
+
 @router.get("/", response_model=List[schemas.AdminOut])
 def get_admins(db: Session = Depends(get_db)):
 

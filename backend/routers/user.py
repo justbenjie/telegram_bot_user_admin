@@ -53,14 +53,14 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @router.put("/{id}", response_model=schemas.UserOut)
 def update_user(
-    id: int, updated_user: schemas.UserCreate, db: Session = Depends(get_db)
+    id: int, updated_user: schemas.UserUpdate, db: Session = Depends(get_db)
 ):
 
-    user_query = db.query(models.User).filter(models.User.id == user.id)
+    user_query = db.query(models.User).filter(models.User.id == id)
 
     user = user_query.first()
 
-    if user is not None:
+    if user is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"User with id: {id} doesn't exist",

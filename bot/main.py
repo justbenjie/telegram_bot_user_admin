@@ -3,7 +3,7 @@ from config import TG_TOKEN
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
-from handlers import register_handlers
+from handlers import register_all_handlers
 from update_workers import get_handled_updates_list
 
 
@@ -15,7 +15,7 @@ async def main():
 
     dp = Dispatcher(bot, storage=storage)
 
-    register_handlers(dp)
+    register_all_handlers(dp)
 
     try:
         await dp.start_polling(allowed_updates=get_handled_updates_list(dp))

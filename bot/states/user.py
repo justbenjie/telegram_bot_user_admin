@@ -5,3 +5,10 @@ class User(StatesGroup):
     name = State()
     phone = State()
     gender = State()
+
+
+class AdminUpdateUser(StatesGroup):
+    id = State()
+    name = State()
+    phone = State()
+    gender = State()
